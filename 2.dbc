@@ -1,0 +1,440 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: PC PSI9040_40
+VAL_TABLE_ Read_Status_Alarm_REM_SB 1 "on" 0 "off" ;
+VAL_TABLE_ Read_Status_Function_Mode 1 "on" 0 "off" ;
+VAL_TABLE_ Read_Coil_DC_After_Power_On 65535 "off" 65534 "restore" ;
+VAL_TABLE_ Read_Coil_DC_After_PF_Alarm 65280 "auto-on" 0 "off" ;
+VAL_TABLE_ Send_Coil_DC_After_Power_On 65535 "off" 65534 "restore" ;
+VAL_TABLE_ Send_Coil_DC_After_PF_Alarm 65280 "auto-on" 0 "off" ;
+VAL_TABLE_ Send_Coil_Remote_On_Off 65280 "on" 0 "off" ;
+VAL_TABLE_ Read_Status_Function_Mode_Cyc 1 "on" 0 "off" ;
+VAL_TABLE_ Read_Status_Alarm_REM_SB_Cyc 1 "on" 0 "off" ;
+VAL_TABLE_ Send_Coil_Remote_On_Off_Cyc 1 "on" 0 "off" ;
+
+
+BO_ 2 Read_Object: 8 PSI9040_40
+ SG_ Read_Status_Remote m505 : 35|1@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Read_Actual_Power m509 : 23|16@0+ (0.019073777,0) [0|1020] "W" Vector__XXX
+ SG_ Read_Actual_Current m508 : 23|16@0+ (0.000762951,0) [0|40.8] "A" Vector__XXX
+ SG_ Read_Actual_Voltage m507 : 23|16@0+ (0.000762951,0) [0|40.8] "V" Vector__XXX
+ SG_ Read_MS_Total_Voltage m656 : 23|32@0- (1,0) [0|0] "V"  PC
+ SG_ Read_MS_Total_Power m660 : 23|32@0- (1,0) [0|0] "W"  PC
+ SG_ Read_MS_Total_Current m658 : 23|32@0- (1,0) [0|0] "A"  PC
+ SG_ Read_MS_Units m662 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_MS_Condition m655 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_MS_Coil_Share_Bus m652 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_MS_Coil_Link_Mode m650 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_MS_Coil_Enable_MS m653 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Alarm_Count_PF m524 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Alarm_Count_OT m523 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Alarm_Count_OP m522 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Alarm_Count_OC m521 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Alarm_Count_OV m520 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_REM_SB m505 : 22|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_MSS m505 : 21|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OPD m505 : 20|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OCD m505 : 19|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_UCD m505 : 18|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OVD m505 : 17|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_UVD m505 : 16|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_PF m505 : 31|3@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OT m505 : 27|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OPP m505 : 26|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OCP m505 : 25|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OVP m505 : 24|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_MS_Type m505 : 46|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Function_Mode m505 : 37|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Ext_Sense m505 : 38|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Reg_Act m505 : 34|2@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_DC_Output m505 : 47|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarms m505 : 39|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Access m505 : 44|5@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Last_Com_Errror m65535 : 23|8@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Coil_Remote m402 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Coil_DC_After_Power_On m408 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Coil_DC_Output m405 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Coil_Op_Mode m409 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Coil_DC_After_PF_Alarm m407 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Coil_AI_VREF m416 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Coil_AI_REM_SB_Level m417 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Coil_AI_REM_SB_Action m418 : 23|16@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Protection_OVP m550 : 23|16@0+ (0.000762951,0) [0|44] "V"  PC
+ SG_ Read_Protection_OPP m556 : 23|16@0+ (0.019073777,0) [0|1100] "W"  PC
+ SG_ Read_Protection_OCP m553 : 23|16@0+ (0.000762951,0) [0|44] "A"  PC
+ SG_ Read_Limit_Umin m9001 : 23|16@0+ (0.000762951,0) [0|40.8] "V"  PC
+ SG_ Read_Limit_Umax m9000 : 23|16@0+ (0.000762951,0) [0|40.8] "V"  PC
+ SG_ Read_Limit_Rmax m9006 : 23|16@0+ (0.000572213,0) [0|30.6] "Ohm"  PC
+ SG_ Read_Limit_Pmax m9004 : 23|16@0+ (0.019073777,0) [0|1020] "W"  PC
+ SG_ Read_Limit_Imin m9003 : 23|16@0+ (0.000762951,0) [0|40.8] "A"  PC
+ SG_ Read_Limit_Imax m9002 : 23|16@0+ (0.000762951,0) [0|40.8] "A"  PC
+ SG_ Read_Event_UVD_Value m559 : 23|16@0+ (0.000762951,0) [0|40.8] "V"  PC
+ SG_ Read_Event_UVD_Action m560 : 23|16@0+ (1,0) [0|3] ""  PC
+ SG_ Read_Event_UCD_Value m563 : 23|16@0+ (0.000762951,0) [0|40.8] "A"  PC
+ SG_ Read_Event_UCD_Action m564 : 23|16@0+ (1,0) [0|3] ""  PC
+ SG_ Read_Event_OVD_Value m561 : 23|16@0+ (0.000762951,0) [0|40.8] "V"  PC
+ SG_ Read_Event_OVD_Action m562 : 23|16@0+ (1,0) [0|3] ""  PC
+ SG_ Read_Event_OPD_Value m567 : 23|16@0+ (0.019073777,0) [0|1020] "W"  PC
+ SG_ Read_Event_OPD_Action m568 : 23|16@0+ (1,0) [0|3] ""  PC
+ SG_ Read_Event_OCD_Value m565 : 23|16@0+ (0.000762951,0) [0|40.8] "A"  PC
+ SG_ Read_Event_OCD_Action m566 : 23|16@0+ (1,0) [0|3] ""  PC
+ SG_ Read_Voltage m500 : 23|16@0+ (0.000762951,0) [0|40.8] "V"  PC
+ SG_ Read_Resistance m503 : 23|16@0+ (0.000572213,0) [0|30.6] "Ohm"  PC
+ SG_ Read_Power m502 : 23|16@0+ (0.019073777,0) [0|1020] "W"  PC
+ SG_ Read_Current m501 : 23|16@0+ (0.000762951,0) [0|40.8] "A"  PC
+ SG_ Read_Nominal_Voltage m121 : 23|32@0- (1,0) [0|0] "V"  PC
+ SG_ Read_Nominal_Power m125 : 23|32@0- (1,0) [0|0] "W"  PC
+ SG_ Read_Nominal_Min_Resistance m129 : 23|32@0- (1,0) [0|0] "Ohm"  PC
+ SG_ Read_Nominal_Max_Resistance m127 : 23|32@0- (1,0) [0|0] "Ohm"  PC
+ SG_ Read_Nominal_Current m123 : 23|32@0- (1,0) [0|0] "A"  PC
+ SG_ Read_Mux M : 7|16@0+ (1,0) [0|0] ""  PC
+
+BO_ 1 Query_Object: 2 PC
+ SG_ Query_Mux : 7|16@0+ (1,0) [0|0] ""  PSI9040_40
+
+BO_ 0 Send_Object: 8 PC
+ SG_ Number_of_registers : 23|8@0+ (1,0) [1|1] "" Vector__XXX
+ SG_ Send_MS_Coil_Share_Bus m652 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_MS_Coil_Link_Mode m650 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_MS_Coil_Init_MS m654 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_MS_Coil_Enable_MS m653 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_Coil_Restart m410 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_Coil_DC_After_Power_On m408 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_Coil_Op_Mode m409 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_Coil_DC_After_PF_Alarm m407 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_Coil_AI_VREF m416 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_Coil_AI_REM_SB_Level m417 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_Coil_AI_REM_SB_Action m418 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_Coil_Ack_Alarms m411 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_Event_UVD_Action m560 : 31|16@0+ (1,0) [0|3] "" Vector__XXX
+ SG_ Send_Event_OPD_Action m568 : 31|16@0+ (1,0) [0|3] "" Vector__XXX
+ SG_ Send_Event_UCD_Action m564 : 31|16@0+ (1,0) [0|3] "" Vector__XXX
+ SG_ Send_Event_OVD_Action m562 : 31|16@0+ (1,0) [0|3] "" Vector__XXX
+ SG_ Send_Event_OCD_Action m566 : 31|16@0+ (1,0) [0|3] "" Vector__XXX
+ SG_ Send_Event_UVD_Value m559 : 31|16@0+ (0.000762951,0) [0|40.8] "V" Vector__XXX
+ SG_ Send_Event_UCD_Value m563 : 31|16@0+ (0.000762951,0) [0|20.4] "A" Vector__XXX
+ SG_ Send_Event_OVD_Value m561 : 31|16@0+ (0.000762951,0) [0|40.8] "V" Vector__XXX
+ SG_ Send_Event_OPD_Value m567 : 31|16@0+ (0.019073777,0) [0|1020] "W" Vector__XXX
+ SG_ Send_Event_OCD_Value m565 : 31|16@0+ (0.000762951,0) [0|20.4] "A" Vector__XXX
+ SG_ Send_Limit_Imin m9003 : 31|16@0+ (0.000762951,0) [0|20.4] "A" Vector__XXX
+ SG_ Send_Limit_Imax m9002 : 31|16@0+ (0.000762951,0) [0|20.4] "A" Vector__XXX
+ SG_ Send_Limit_Pmax m9004 : 31|16@0+ (0.019073777,0) [0|1020] "W" Vector__XXX
+ SG_ Send_Limit_Umin m9001 : 31|16@0+ (0.000762951,0) [0|40.8] "V" Vector__XXX
+ SG_ Send_Limit_Umax m9000 : 31|16@0+ (0.000762951,0) [0|40.8] "V" Vector__XXX
+ SG_ Send_Limit_Rmax m9006 : 31|16@0+ (0.000572213,0) [0|30.6] "Ohm" Vector__XXX
+ SG_ Send_Protection_OVP m550 : 31|16@0+ (0.000762951,0) [0|44] "V" Vector__XXX
+ SG_ Send_Protection_OPP m556 : 31|16@0+ (0.019073777,0) [0|1100] "W" Vector__XXX
+ SG_ Send_Protection_OCP m553 : 31|16@0+ (0.000762951,0) [0|44] "A" Vector__XXX
+ SG_ Send_Resistance m503 : 31|16@0+ (0.000572213,0) [0|30.6] "Ohm" Vector__XXX
+ SG_ Send_Current m501 : 31|16@0+ (0.000762951,0) [0|20.4] "A" Vector__XXX
+ SG_ Send_Voltage m500 : 31|16@0+ (0.000762951,0) [0|40.8] "V" Vector__XXX
+ SG_ Send_Power m502 : 31|16@0+ (0.019073777,0) [0|1020] "W" Vector__XXX
+ SG_ Send_Coil_Remote_On_Off m402 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_Coil_DC_Output m405 : 31|16@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Send_Mux M : 7|16@0+ (1,0) [0|0] ""  PSI9040_40
+
+BO_ 258 Cyclic_Read_Set_Values: 8 PSI9040_40
+ SG_ Read_Power_Cyclic : 39|16@0+ (0.019073777,0) [0|1020] "W"  PC
+ SG_ Read_Resistance_Cyclic : 55|16@0+ (0.000572213,0) [0|30.6] "Ohm"  PC
+ SG_ Read_Current_Cyclic : 23|16@0+ (0.000762951,0) [0|40.8] "A"  PC
+ SG_ Read_Voltage_Cyclic : 7|16@0+ (0.000762951,0) [0|40.8] "V"  PC
+
+BO_ 260 Cyclic_Read_Limits_2: 8 PSI9040_40
+ SG_ Read_Limit_Rmax_Cyclic : 23|16@0+ (0.000572213,0) [0|30.6] "Ohm"  PC
+ SG_ Read_Limit_Pmax_Cyclic : 7|16@0+ (0.019073777,0) [0|1020] "W"  PC
+
+BO_ 259 Cyclic_Read_Limits_1: 8 PSI9040_40
+ SG_ Read_Limit_Umin_Cyclic : 55|16@0+ (0.000762951,0) [0|40.8] "V"  PC
+ SG_ Read_Limit_Umax_Cyclic : 39|16@0+ (0.000762951,0) [0|40.8] "V"  PC
+ SG_ Read_Limit_Imin_Cyclic : 23|16@0+ (0.000762951,0) [0|40.8] "A"  PC
+ SG_ Read_Limit_Imax_Cyclic : 7|16@0+ (0.000762951,0) [0|40.8] "A"  PC
+
+BO_ 256 Cyclic_Read_Status: 8 PSI9040_40
+ SG_ Read_Status_Remote_Cyclic : 7|1@0+ (1,0) [0|0] "" Vector__XXX
+ SG_ Read_Status_Reg_Act_Cyclic : 26|2@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_DC_Output_Cyclic : 27|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_MS_Type_Cyclic : 28|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Function_Mode_Cyclic : 29|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Ext_Sense_Cyclic : 30|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_UVD_Cyclic : 31|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_UCD_Cyclic : 16|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_REM_SB_Cyclic : 17|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_PF_Cyclic : 20|3@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OVP_Cyclic : 21|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OVD_Cyclic : 22|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OT_Cyclic : 8|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OPP_Cyclic : 9|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OPD_Cyclic : 10|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OCP_Cyclic : 0|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_OCD_Cyclic : 1|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarm_MSS_Cyclic : 2|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Alarms_Cyclic : 3|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Status_Access_Cyclic : 15|5@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Coil_Op_Mode_Cyclic : 4|1@0+ (1,0) [0|0] ""  PC
+ SG_ Read_Coil_DC_Output_Cyclic : 6|1@0+ (1,0) [0|0] ""  PC
+
+BO_ 257 Cyclic_Read_Act_Values: 8 PSI9040_40
+ SG_ Read_Actual_Power_Cyclic : 39|16@0+ (0.019073777,0) [0|1020] "W"  PC
+ SG_ Read_Actual_Current_Cyclic : 23|16@0+ (0.000762951,0) [0|40.8] "A"  PC
+ SG_ Read_Actual_Voltage_Cyclic : 7|16@0+ (0.000762951,0) [0|40.8] "V"  PC
+
+BO_ 512 Cyclic_Send_Mode: 8 PC
+ SG_ Send_Coil_Ack_Alarms_Cyclic : 4|1@0+ (1,0) [0|0] ""  PSI9040_40
+ SG_ Send_Coil_Op_Mode_Cyclic : 2|1@0+ (1,0) [0|0] ""  PSI9040_40
+ SG_ Send_Coil_DC_Output_Cyclic : 1|1@0+ (1,0) [0|0] ""  PSI9040_40
+ SG_ Send_Coil_Remote_On_Off_Cyclic : 0|1@0+ (1,0) [0|0] ""  PSI9040_40
+
+BO_ 513 Cyclic_Send_Set_Values: 8 PC
+ SG_ Send_Resistance_Cyclic : 55|16@0+ (0.000572213,0) [0|30.6] "Ohm"  PSI9040_40
+ SG_ Send_Power_Cyclic : 39|16@0+ (0.019073777,0) [0|1020] "W"  PSI9040_40
+ SG_ Send_Current_Cyclic : 23|16@0+ (0.000762951,0) [0|20.4] "A"  PSI9040_40
+ SG_ Send_Voltage_Cyclic : 7|16@0+ (0.000762951,0) [0|40.8] "V"  PSI9040_40
+
+
+
+BA_DEF_ SG_  "GenSigStartValue" INT -2147483648 2147483647;
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","J1939PG";
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType";
+BA_DEF_ SG_  "GenSigPreSetting" STRING ;
+BA_DEF_ SG_  "GenSigPreIfSetting" STRING ;
+BA_DEF_ SG_  "GenSigPostSetting" STRING ;
+BA_DEF_ SG_  "GenSigPostIfSetting" STRING ;
+BA_DEF_ SG_  "GenSigInactiveValue" INT -2147483648 2147483647;
+BA_DEF_ SG_  "GenSigEVName" STRING ;
+BA_DEF_ SG_  "GenSigEnvVarType" ENUM  "int","float","undef";
+BA_DEF_ SG_  "GenSigConditionalSend" STRING ;
+BA_DEF_ SG_  "GenSigAutoGenSnd" ENUM  "No","Yes";
+BA_DEF_ SG_  "GenSigAutoGenDsp" ENUM  "No","Yes";
+BA_DEF_ SG_  "GenSigAssignSetting" STRING ;
+BA_DEF_ SG_  "GenSigAltSetting" STRING ;
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 100000;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclicX","spontanX","cyclicIfActiveX","spontanWithDelay","cyclicAndSpontanX","cyclicAndSpontanWithDelay","spontanWithRepetition","cyclicIfActiveAndSpontanWD","cyclicIfActiveFast","cyclicWithRepeatOnDemand";
+BA_DEF_ BO_  "GenMsgPreSetting" STRING ;
+BA_DEF_ BO_  "GenMsgPreIfSetting" STRING ;
+BA_DEF_ BO_  "GenMsgPostSetting" STRING ;
+BA_DEF_ BO_  "GenMsgPostIfSetting" STRING ;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 100;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgEVName" STRING ;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 100000;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 65535;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgConditionalSend" STRING ;
+BA_DEF_ BO_  "GenMsgAutoGenSnd" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgAutoGenDsp" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgAltSetting" STRING ;
+BA_DEF_ BU_  "iLUsed" ENUM  "No","Yes";
+BA_DEF_ BU_  "GenNodSleepTime" INT -2147483648 2147483647;
+BA_DEF_ BU_  "GenNodAutoGenSnd" ENUM  "No","Yes";
+BA_DEF_ BU_  "GenNodAutoGenDsp" ENUM  "No","Yes";
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "Baudrate" INT 0 1000000;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigSendType" "Cyclic";
+BA_DEF_DEF_  "GenSigPreSetting" "";
+BA_DEF_DEF_  "GenSigPreIfSetting" "";
+BA_DEF_DEF_  "GenSigPostSetting" "";
+BA_DEF_DEF_  "GenSigPostIfSetting" "";
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenSigEVName" "";
+BA_DEF_DEF_  "GenSigEnvVarType" "undef";
+BA_DEF_DEF_  "GenSigConditionalSend" "";
+BA_DEF_DEF_  "GenSigAutoGenSnd" "";
+BA_DEF_DEF_  "GenSigAutoGenDsp" "";
+BA_DEF_DEF_  "GenSigAssignSetting" "";
+BA_DEF_DEF_  "GenSigAltSetting" "";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "GenMsgSendType" "cyclicX";
+BA_DEF_DEF_  "GenMsgPreSetting" "";
+BA_DEF_DEF_  "GenMsgPreIfSetting" "";
+BA_DEF_DEF_  "GenMsgPostSetting" "";
+BA_DEF_DEF_  "GenMsgPostIfSetting" "";
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "Yes";
+BA_DEF_DEF_  "GenMsgEVName" "";
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgCycleTime" 1000;
+BA_DEF_DEF_  "GenMsgConditionalSend" "";
+BA_DEF_DEF_  "GenMsgAutoGenSnd" "Yes";
+BA_DEF_DEF_  "GenMsgAutoGenDsp" "Yes";
+BA_DEF_DEF_  "GenMsgAltSetting" "";
+BA_DEF_DEF_  "iLUsed" "Yes";
+BA_DEF_DEF_  "GenNodSleepTime" 0;
+BA_DEF_DEF_  "GenNodAutoGenSnd" "Yes";
+BA_DEF_DEF_  "GenNodAutoGenDsp" "Yes";
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "Baudrate" 500000;
+BA_ "BusType" "CAN";
+BA_ "DBName" "PSI9000";
+BA_ "GenMsgSendType" BO_ 2 1;
+BA_ "GenMsgSendType" BO_ 1 1;
+BA_ "GenMsgILSupport" BO_ 0 0;
+BA_ "GenMsgAutoGenSnd" BO_ 0 0;
+BA_ "GenMsgAutoGenDsp" BO_ 0 0;
+BA_ "GenMsgSendType" BO_ 0 1;
+BA_ "GenMsgCycleTime" BO_ 258 1000;
+BA_ "GenMsgSendType" BO_ 258 1;
+BA_ "GenMsgCycleTime" BO_ 260 1000;
+BA_ "GenMsgSendType" BO_ 260 1;
+BA_ "GenMsgCycleTime" BO_ 259 100;
+BA_ "GenMsgSendType" BO_ 259 1;
+BA_ "GenMsgCycleTime" BO_ 256 20;
+BA_ "GenMsgSendType" BO_ 256 1;
+BA_ "GenMsgCycleTime" BO_ 257 20;
+BA_ "GenMsgSendType" BO_ 257 1;
+BA_ "GenMsgCycleTime" BO_ 512 20;
+BA_ "GenMsgSendType" BO_ 512 1;
+BA_ "GenMsgCycleTime" BO_ 513 20;
+BA_ "GenMsgSendType" BO_ 513 1;
+BA_ "GenSigStartValue" SG_ 0 Number_of_registers 1;
+VAL_ 2 Read_Status_Remote 1 "On" 0 "Off" ;
+VAL_ 2 Read_MS_Condition 65535 "init OK" 65533 "different models detected" 1 "init running" 0 "not initialised" ;
+VAL_ 2 Read_MS_Coil_Share_Bus 65280 "Master" 0 "Slave" ;
+VAL_ 2 Read_MS_Coil_Link_Mode 65280 "Master" 0 "Slave" ;
+VAL_ 2 Read_MS_Coil_Enable_MS 65280 "on" 0 "off" ;
+VAL_ 2 Read_Status_Alarm_REM_SB 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Alarm_MSS 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Alarm_OPD 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Alarm_OCD 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Alarm_UCD 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Alarm_OVD 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Alarm_UVD 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Alarm_PF 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Alarm_OT 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Alarm_OPP 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Alarm_OCP 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Alarm_OVP 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_MS_Type 1 "Master" 0 "Slave" ;
+VAL_ 2 Read_Status_Function_Mode 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Ext_Sense 1 "on" 0 "off" ;
+VAL_ 2 Read_Status_Reg_Act 1 "CR" 3 "CP" 2 "CC" 0 "CV" ;
+VAL_ 2 Read_Status_DC_Output 1 "On" 0 "Off" ;
+VAL_ 2 Read_Status_Alarms 1 "Alarm" 0 "No alarm" ;
+VAL_ 2 Read_Status_Access 25 "CAN" 8 "Master/Slave" 5 "analog" 3 "USB" 2 "remote" 1 "local" 0 "free" ;
+VAL_ 2 Read_Last_Com_Errror 23 "Device in local" 5 "CRC" 4 "Execution" 3 "Wrong data or data length" 2 "Invalid address" 1 "Wrong function code" 20 "CAN driver buffer full" 18 "CAN transmission error" 17 "CAN CRC error" 16 "CAN stuffing error" 13 "Message buffer overflow" 7 "Access denied" 0 "No error" ;
+VAL_ 2 Read_Coil_Remote 65280 "on" 0 "off" ;
+VAL_ 2 Read_Coil_DC_After_Power_On 65535 "off" 65534 "restore" ;
+VAL_ 2 Read_Coil_DC_Output 65280 "on" 0 "off" ;
+VAL_ 2 Read_Coil_Op_Mode 65280 "UIR" 0 "UIP" ;
+VAL_ 2 Read_Coil_DC_After_PF_Alarm 65280 "auto-on" 0 "off" ;
+VAL_ 2 Read_Coil_AI_VREF 65280 "5V" 0 "10V" ;
+VAL_ 2 Read_Coil_AI_REM_SB_Level 65280 "inverted" 0 "normal" ;
+VAL_ 2 Read_Coil_AI_REM_SB_Action 65280 "DC auto" 0 "DC off" ;
+VAL_ 2 Read_Event_UVD_Action 3 "alarm" 2 "warning" 1 "signal" 0 "nothing" ;
+VAL_ 2 Read_Event_UCD_Action 3 "alarm" 2 "warning" 1 "signal" 0 "nothing" ;
+VAL_ 2 Read_Event_OVD_Action 3 "alarm" 2 "warning" 1 "signal" 0 "nothing" ;
+VAL_ 2 Read_Event_OPD_Action 3 "alarm" 2 "warning" 1 "signal" 0 "nothing" ;
+VAL_ 2 Read_Event_OCD_Action 3 "alarm" 2 "warning" 1 "signal" 0 "nothing" ;
+VAL_ 2 Read_Mux 662 "Master-slave: Number of slaves" 660 "Master-slave: Total power" 658 "Master-slave: Total current" 656 "Master-slave: Total voltage" 655 "Master-slave: Condition" 653 "Master-slave: Enable MS" 652 "Master-slave: Share-Bus" 650 "Master-slave: Link mode" 65535 "Error Message" 9006 "Upper limit of res. set value" 9004 "Upper limit of power set value" 9003 "Lower limit of current set value" 9002 "Upper limit of current set value" 9001 "Lower limit of voltage set value" 9000 "Upper limit of voltage set value" 568 "Adjustable OPD notification" 567 "Overpower detection (OPD)" 566 "Adjustable OCD notification" 565 "Overcurrent detection (OCD)" 564 "Adjustable UCD notification" 563 "Undercurrent detection (UCD)" 562 "Adjustable OVD notification" 561 "Overvoltage detection (OVD)" 560 "Adjustable UVD notification" 559 "Undervoltage detection (UVD)" 556 "Overpower protection threshold" 553 "Overcurrent protection threshold" 550 "Overvoltage protection threshold" 524 "Count of PF alarms" 523 "Count of OT alarms" 522 "Count of OP alarms" 521 "Count of OC alarms " 520 "Count of OV alarms" 509 "Actual power" 508 "Actual current" 507 "Actual voltage" 505 "Device state" 503 "Set resistance value" 501 "Set current value" 500 "Set voltage value" 418 "AI: REM-SB action" 417 "AI: REM-SB level" 416 "AI: Reference voltage (pin VREF)" 409 "Operation mode (UIP/UIR)" 408 "DC output after power ON" 407 "DC output after PF alarm" 405 "DC output" 231 "Firmware version (DR)" 211 "Firmware version (HMI)" 191 "Firmware version (KE)" 171 "User text" 151 "Serial no." 131 "Article no." 129 "Min. Internal resistance" 127 "Max. Internal resistance" 125 "Nominal power" 123 "Nominal current" 121 "Nominal voltage" 101 "Manufacturer website" 81 "Manufacterer phone number" 61 "Manufacturer ZIP code" 41 "Manufacturer address" 21 "Manufacturer" 1 "Device type" 502 "Set power value" 402 "Remote mode" 0 "Device class" ;
+VAL_ 1 Query_Mux 662 "Master-slave: Number slaves" 660 "Master-slave: Total power" 658 "Master-slave: Total current" 656 "Master-slave: Total voltage" 655 "Master-slave: Condition" 653 "Master-slave: Enable MS" 652 "Master-slave: L.mode Share-Bus" 650 "Master-slave: Link mode" 65535 "Error Message" 9006 "Upper limit of res. set value" 9004 "Upper limit of power set value" 9003 "Lower limit of current set value" 9002 "Upper limit of current set value" 9001 "Lower limit of voltage set value" 9000 "Upper limit of voltage set value" 568 "Adjustable OPD notification" 567 "Overpower detection (OPD)" 566 "Adjustable OCD notification" 565 "Overcurrent detection (OCD)" 564 "Adjustable UCD notification" 563 "Undercurrent detection (UCD)" 562 "Adjustable OVD notification" 561 "Overvoltage detection (OVD)" 560 "Adjustable UVD notification" 559 "Undervoltage detection (UVD)" 556 "Overpower protection threshold" 553 "Overcurrent protection threshold" 550 "Overvoltage protection threshold" 524 "Count of PF alarms" 523 "Count of OT alarms" 522 "Count of OP alarms" 521 "Count of OC alarms " 520 "Count of OV alarms" 509 "Actual power" 508 "Actual current" 507 "Actual voltage" 505 "Device state" 503 "Set resistance value" 501 "Set current value" 500 "Set voltage value" 418 "AI: REM-SB action" 417 "AI: REM-SB level" 416 "AI: Reference voltage (pin VREF)" 409 "Operation mode (UIP/UIR)" 408 "DC output after power ON" 407 "DC output after PF alarm" 405 "DC output" 231 "Firmware version (DR)" 211 "Firmware version (HMI)" 191 "Firmware version (KE)" 171 "User text" 151 "Serial no." 131 "Article no." 129 "Min. Internal resistance" 127 "Max. Internal resistance" 125 "Nominal power" 123 "Nominal current" 121 "Nominal voltage" 101 "Manufacturer website" 81 "Manufacterer phone number" 61 "Manufacturer ZIP code" 41 "Manufacturer address" 21 "Manufacturer" 1 "Device type" 502 "Set power value" 402 "Remote mode" 0 "Device class" ;
+VAL_ 0 Send_MS_Coil_Share_Bus 65280 "Master" 0 "Slave" ;
+VAL_ 0 Send_MS_Coil_Link_Mode 65280 "Master" 0 "Slave" ;
+VAL_ 0 Send_MS_Coil_Init_MS 65280 "Start init" ;
+VAL_ 0 Send_MS_Coil_Enable_MS 65280 "on" 0 "off" ;
+VAL_ 0 Send_Coil_Restart 65280 "execute" ;
+VAL_ 0 Send_Coil_DC_After_Power_On 65535 "off" 65534 "restore" ;
+VAL_ 0 Send_Coil_Op_Mode 65280 "UIR" 0 "UIP" ;
+VAL_ 0 Send_Coil_DC_After_PF_Alarm 65280 "auto-on" 0 "off" ;
+VAL_ 0 Send_Coil_AI_VREF 65280 "5V" 0 "10V" ;
+VAL_ 0 Send_Coil_AI_REM_SB_Level 65280 "inverted" 0 "normal" ;
+VAL_ 0 Send_Coil_AI_REM_SB_Action 65280 "DC auto" 0 "DC off" ;
+VAL_ 0 Send_Coil_Ack_Alarms 65280 "acknowledge" ;
+VAL_ 0 Send_Event_UVD_Action 3 "alarm" 2 "warning" 1 "signal" 0 "nothing" ;
+VAL_ 0 Send_Event_OPD_Action 3 "alarm" 2 "warning" 1 "signal" 0 "nothing" ;
+VAL_ 0 Send_Event_UCD_Action 3 "alarm" 2 "warning" 1 "signal" 0 "nothing" ;
+VAL_ 0 Send_Event_OVD_Action 3 "alarm" 2 "warning" 1 "signal" 0 "nothing" ;
+VAL_ 0 Send_Event_OCD_Action 3 "alarm" 2 "warning" 1 "signal" 0 "nothing" ;
+VAL_ 0 Send_Coil_Remote_On_Off 65280 "on" 0 "off" ;
+VAL_ 0 Send_Coil_DC_Output 65280 "on" 0 "off" ;
+VAL_ 0 Send_Mux 654 "Master-slave: Init MS" 653 "Master-slave: Enable MS" 652 "Master-slave: Share-Bus" 650 "Master-slave: Link mode" 9006 "Upper limit of res. set value" 9004 "Upper limit of power set value" 9003 "Lower limit of current set value" 9002 "Upper limit of current set value" 9001 "Lower limit of voltage set value" 9000 "Upper limit of voltage set value" 568 "Adjustable OPD notification" 567 "Overpower detection (OPD)" 566 "Adjustable OCD notification" 565 "Overcurrent detection (OCD)" 564 "Adjustable UCD notification" 563 "Undercurrent detection (UCD)" 562 "Adjustable OVD notification" 561 "Overvoltage detection (OVD)" 560 "Adjustable UVD notification" 559 "Undervoltage detection (UVD)" 556 "Overpower protection threshold" 553 "Overcurrent protection threshold" 550 "Overvoltage protection threshold" 509 "Actual power" 508 "Actual current" 507 "Actual voltage" 503 "Set resistance value" 501 "Set current value" 500 "Set voltage value" 418 "AI: REM-SB action" 417 "AI: REM-SB level" 416 "AI: Reference voltage (pin VREF)" 411 "Acknowledge alarms" 410 "Restart" 409 "Operation mode (UIP/UIR)" 408 "DC output after power ON" 407 "DC output after PF alarm" 405 "DC output" 171 "User text" 502 "Set power value" 402 "Remote mode" ;
+VAL_ 256 Read_Status_Remote_Cyclic 1 "On" 0 "Off" ;
+VAL_ 256 Read_Status_Reg_Act_Cyclic 1 "CR" 3 "CP" 2 "CC" 0 "CV" ;
+VAL_ 256 Read_Status_DC_Output_Cyclic 1 "On" 0 "Off" ;
+VAL_ 256 Read_Status_MS_Type_Cyclic 1 "Master" 0 "Slave" ;
+VAL_ 256 Read_Status_Function_Mode_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Ext_Sense_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarm_UVD_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarm_UCD_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarm_REM_SB_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarm_PF_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarm_OVP_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarm_OVD_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarm_OT_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarm_OPP_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarm_OPD_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarm_OCP_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarm_OCD_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarm_MSS_Cyclic 1 "on" 0 "off" ;
+VAL_ 256 Read_Status_Alarms_Cyclic 1 "Alarm" 0 "No alarm" ;
+VAL_ 256 Read_Status_Access_Cyclic 25 "CAN" 8 "Master/Slave" 5 "analog" 3 "USB" 2 "remote" 1 "local" 0 "free" ;
+VAL_ 256 Read_Coil_Op_Mode_Cyclic 1 "UIR" 0 "UIP" ;
+VAL_ 256 Read_Coil_DC_Output_Cyclic 1 "on" 0 "off" ;
+VAL_ 512 Send_Coil_Ack_Alarms_Cyclic 1 "acknowledge" ;
+VAL_ 512 Send_Coil_Op_Mode_Cyclic 1 "UIR" 0 "UIP" ;
+VAL_ 512 Send_Coil_DC_Output_Cyclic 1 "on" 0 "off" ;
+VAL_ 512 Send_Coil_Remote_On_Off_Cyclic 1 "on" 0 "off" ;
+SIG_GROUP_ 2 Master_Slave 1 : Read_MS_Total_Voltage Read_MS_Total_Power Read_MS_Total_Current Read_MS_Units Read_MS_Condition Read_MS_Coil_Share_Bus Read_MS_Coil_Link_Mode Read_MS_Coil_Enable_MS;
+SIG_GROUP_ 2 Error 1 : Read_Last_Com_Errror;
+SIG_GROUP_ 2 Control 1 : Read_Coil_Remote Read_Coil_DC_After_Power_On Read_Coil_DC_Output Read_Coil_Op_Mode Read_Coil_DC_After_PF_Alarm Read_Coil_AI_VREF Read_Coil_AI_REM_SB_Level Read_Coil_AI_REM_SB_Action;
+SIG_GROUP_ 2 Events 1 : Read_Event_UVD_Value Read_Event_UVD_Action Read_Event_UCD_Value Read_Event_UCD_Action Read_Event_OVD_Value Read_Event_OVD_Action Read_Event_OPD_Value Read_Event_OPD_Action Read_Event_OCD_Value Read_Event_OCD_Action;
+SIG_GROUP_ 2 Limits 1 : Read_Limit_Umin Read_Limit_Umax Read_Limit_Rmax Read_Limit_Pmax Read_Limit_Imin Read_Limit_Imax;
+SIG_GROUP_ 2 Protection 1 : Read_Alarm_Count_PF Read_Alarm_Count_OT Read_Alarm_Count_OP Read_Alarm_Count_OC Read_Alarm_Count_OV Read_Protection_OVP Read_Protection_OPP Read_Protection_OCP;
+SIG_GROUP_ 2 Nominal_Values 1 : Read_Nominal_Voltage Read_Nominal_Power Read_Nominal_Min_Resistance Read_Nominal_Max_Resistance Read_Nominal_Current;
+SIG_GROUP_ 2 Set_Values 1 : Read_Resistance Read_Power Read_Current Read_Voltage;
+SIG_GROUP_ 2 Status 1 : Read_Status_Remote Read_Status_Alarm_OVP Read_Status_Alarm_OCP Read_Status_Alarm_OPP Read_Status_Alarm_OT Read_Status_Alarm_PF Read_Status_Alarm_REM_SB Read_Status_Alarm_MSS Read_Status_Alarm_OPD Read_Status_Alarm_OCD Read_Status_Alarm_UCD Read_Status_Alarm_OVD Read_Status_Alarm_UVD Read_Status_Ext_Sense Read_Status_Function_Mode Read_Status_MS_Type Read_Status_Access Read_Status_Alarms Read_Status_DC_Output Read_Status_Reg_Act;
+SIG_GROUP_ 2 Actual_Values 1 : Read_Actual_Current Read_Actual_Power Read_Actual_Voltage;
+SIG_GROUP_ 0 Master_Slave 1 : Send_MS_Coil_Share_Bus Send_MS_Coil_Link_Mode Send_MS_Coil_Init_MS Send_MS_Coil_Enable_MS;
+SIG_GROUP_ 0 Events 1 : Send_Event_UVD_Action Send_Event_OPD_Action Send_Event_UCD_Action Send_Event_OVD_Action Send_Event_OCD_Action Send_Event_UVD_Value Send_Event_UCD_Value Send_Event_OVD_Value Send_Event_OPD_Value Send_Event_OCD_Value;
+SIG_GROUP_ 0 Limits 1 : Send_Limit_Imin Send_Limit_Imax Send_Limit_Pmax Send_Limit_Umin Send_Limit_Umax Send_Limit_Rmax;
+SIG_GROUP_ 0 Protection 1 : Send_Protection_OVP Send_Protection_OPP Send_Protection_OCP;
+SIG_GROUP_ 0 Set_Values 1 : Send_Resistance Send_Current Send_Voltage Send_Power;
+SIG_GROUP_ 0 Control 1 : Send_Coil_Restart Send_Coil_DC_After_Power_On Send_Coil_Op_Mode Send_Coil_DC_After_PF_Alarm Send_Coil_AI_VREF Send_Coil_AI_REM_SB_Level Send_Coil_AI_REM_SB_Action Send_Coil_Ack_Alarms Send_Coil_Remote_On_Off Send_Coil_DC_Output;
+SIG_VALTYPE_ 2 Read_MS_Total_Voltage : 1;
+SIG_VALTYPE_ 2 Read_MS_Total_Power : 1;
+SIG_VALTYPE_ 2 Read_MS_Total_Current : 1;
+SIG_VALTYPE_ 2 Read_Nominal_Voltage : 1;
+SIG_VALTYPE_ 2 Read_Nominal_Power : 1;
+SIG_VALTYPE_ 2 Read_Nominal_Min_Resistance : 1;
+SIG_VALTYPE_ 2 Read_Nominal_Max_Resistance : 1;
+SIG_VALTYPE_ 2 Read_Nominal_Current : 1;
+
+
+
+
+
