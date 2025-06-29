@@ -15,9 +15,9 @@ fn load_dbc(path: &str) -> Result<Dbc, Box<dyn std::error::Error>> {
 fn build_message_map(dbc: Dbc) -> HashMap<u32, (String, u32, String)> {
     let mut map = HashMap::new();
     for msg in dbc.messages {
-        let raw_id = msg.messages_id.raw();
-        let kind = msg.messages_id.kind().to_string();
-        map.insert(raw_id, (kind, msg.cycle_time, msg.messages_name));
+        let raw_id = msg.message_id.raw();
+        let kind = msg.message_id.kind().to_string();
+        map.insert(raw_id, (kind, msg.cycle_time, msg.message_name));
     }
     map
 }

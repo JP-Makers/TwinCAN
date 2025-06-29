@@ -1,0 +1,5 @@
+Message,Message-ID,ID-Format,DBC1,DBC2
+Send_Object,0x0,CAN Standard,100,1000
+Query_Object,0x1,CAN Standard,100,1000
+Read_Object,0x2,CAN Standard,100,1000
+Cyclic_Read_Limits_1,0x103,CAN Standard,1000,100
