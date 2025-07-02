@@ -47,31 +47,31 @@ impl Signal {
     pub fn name(&self) -> &str {
         &self.name
     }
-    
+
     pub fn start_bit(&self) -> u64 {
         self.start_bit
     }
-    
+
     pub fn signal_size(&self) -> u64 {
         self.signal_size
     }
-    
+
     pub fn factor(&self) -> f64 {
         self.factor
     }
-    
+
     pub fn offset(&self) -> f64 {
         self.offset
     }
-    
+
     pub fn min(&self) -> f64 {
         self.min
     }
-    
+
     pub fn max(&self) -> f64 {
         self.max
     }
-    
+
     pub fn unit(&self) -> &str {
         &self.unit
     }
@@ -83,6 +83,7 @@ pub struct Message {
     pub message_id: MessageID,
     pub message_size: u64,
     pub cycle_time: u32,
+    pub transmitter: String,
     pub signals: Vec<Signal>,
 }
 
@@ -90,7 +91,7 @@ impl Message {
     pub fn message_name(&self) -> &str {
         &self.message_name
     }
-    
+
     pub fn message_id(&self) -> (u32, &'static str) {
         (self.message_id.raw(), self.message_id.kind())
     }
@@ -98,9 +99,17 @@ impl Message {
     pub fn message_size(&self) -> u64 {
         self.message_size
     }
-    
+
     pub fn cycle_time(&self) -> u32 {
         self.cycle_time
+    }
+
+    pub fn transmitter(&self) -> &str {
+        if self.transmitter.starts_with("Vector__XXX") {
+            "No Transmitter"
+        } else {
+            &self.transmitter
+        }
     }
 }
 
@@ -137,17 +146,19 @@ impl TryFrom<&str> for Dbc {
 fn parse_message(dbc_input: &str) -> Vec<Message> {
     let message_names = parse_message_name(dbc_input);
     let message_size = parse_message_size(dbc_input);
+    let message_transmitters = parse_message_transmitters(dbc_input);
     let default_cycles = parse_default_cycle_time(dbc_input).unwrap_or(0);
     let explicit_cycles = parse_explicit_cycle_time(dbc_input);
     let signals = parse_signals(dbc_input);
-    
+
     let mut message = Vec::new();
 
     for (id, message_name) in message_names {
         let cycle_time = explicit_cycles.get(&id).copied().unwrap_or(default_cycles);
         let message_size = message_size.get(&id).copied().unwrap_or(0);
         let message_signals = signals.get(&id).cloned().unwrap_or_else(Vec::new);
-        
+        let transmitter = message_transmitters.get(&id).cloned().unwrap_or_else(|| "Vector__XXX".to_string());
+
         let message_id = if id < 0x800 {
             MessageID::Standard(id as u16)
         } else {
@@ -159,6 +170,7 @@ fn parse_message(dbc_input: &str) -> Vec<Message> {
             message_id,
             message_size,
             cycle_time,
+            transmitter,
             signals: message_signals,
         });
     }
@@ -190,6 +202,19 @@ fn parse_message_size(dbc_input: &str) -> collections::HashMap<u32, u64> {
     map
 }
 
+fn parse_message_transmitters(dbc_input: &str) -> collections::HashMap<u32, String> {
+    let re_transmitter = Regex::new(r#"BO_\s+(\d+)\s+\w+:\s+\d+\s+(\w+)"#).unwrap();
+    let mut map = collections::HashMap::new();
+
+    for cap in re_transmitter.captures_iter(dbc_input) {
+        if let Ok(id) = cap[1].parse::<u32>() {
+            let transmitter = cap[2].to_string();
+            map.insert(id, transmitter);
+        }
+    }
+    map
+}
+
 fn parse_default_cycle_time(dbc_input: &str) -> Option<u32> {
     let re_default = Regex::new(r#"BA_DEF_DEF_\s+"GenMsgCycleTime"\s+(\d+);"#).unwrap();
     if let Some(cap) = re_default.captures(dbc_input) {
@@ -215,7 +240,7 @@ fn parse_signals(dbc_input: &str) -> collections::HashMap<u32, Vec<Signal>> {
     let mut signals_map: collections::HashMap<u32, Vec<Signal>> = collections::HashMap::new();
     let mut current_message_id = 0u32;
     let lines: Vec<&str> = dbc_input.lines().collect();
-    
+
     for line in lines {
         if let Some(msg_cap) = Regex::new(r#"BO_\s+(\d+)\s+\w+:"#).unwrap().captures(line) {
             if let Ok(id) = msg_cap[1].parse::<u32>() {
@@ -223,7 +248,7 @@ fn parse_signals(dbc_input: &str) -> collections::HashMap<u32, Vec<Signal>> {
                 signals_map.entry(current_message_id).or_insert_with(Vec::new);
             }
         }
-        
+
         if let Some(cap) = re_signal.captures(line) {
             if let (Ok(start_bit), Ok(signal_size), Ok(factor), Ok(offset), Ok(min), Ok(max)) = (
                 cap[2].parse::<u64>(),
@@ -243,13 +268,13 @@ fn parse_signals(dbc_input: &str) -> collections::HashMap<u32, Vec<Signal>> {
                     max,
                     unit: cap[10].to_string(),
                 };
-                
+
                 if let Some(signals) = signals_map.get_mut(&current_message_id) {
                     signals.push(signal);
                 }
             }
         }
     }
-    
+
     signals_map
 }
