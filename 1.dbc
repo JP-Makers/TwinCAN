@@ -317,6 +317,7 @@ BA_ "GenMsgCycleTime" BO_ 256 20;
 BA_ "GenMsgSendType" BO_ 256 1;
 BA_ "GenMsgCycleTime" BO_ 257 20;
 BA_ "GenMsgSendType" BO_ 257 1;
+BA_ "GenSigStartValue" SG_ 256 Read_Status_Remote_Cyclic 1;
 BA_ "GenMsgCycleTime" BO_ 512 20;
 BA_ "GenMsgSendType" BO_ 512 1;
 BA_ "GenMsgCycleTime" BO_ 513 20;

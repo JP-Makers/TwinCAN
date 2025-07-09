@@ -20,6 +20,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
+fn escape_csv_field(field: &str) -> String {
+    // If field contains comma, quote, or newline, wrap in quotes and escape internal quotes
+    if field.contains(',') || field.contains('"') || field.contains('\n') || field.contains('\r') {
+        format!("\"{}\"", field.replace('"', "\"\""))
+    } else {
+        field.to_string()
+    }
+}
+
 fn compare_dbc_to_csv(dbc1: &Dbc, dbc2: &Dbc) -> Result<(), Box<dyn std::error::Error>> {
     use std::collections::HashMap;
     use std::io::Write;
@@ -186,10 +195,24 @@ fn compare_signal_properties(
     
     let signal_name = sig1.name();
     
-    // Compare start bit
-    if sig1.start_bit() != sig2.start_bit() {
-        writeln!(csv_file, "Signal,{},{}, Start Bit,{},{}", 
-                msg_name, signal_name, sig1.start_bit(), sig2.start_bit())?;
+    // Check both raw and Vector start bits
+    let raw_bit1 = sig1.start_bit();
+    let raw_bit2 = sig2.start_bit();
+    let vector_bit1 = sig1.vector_start_bit();
+    let vector_bit2 = sig2.vector_start_bit();
+    
+    let raw_different = raw_bit1 != raw_bit2;
+    let vector_different = vector_bit1 != vector_bit2;
+    
+    // If Vector bits are different, show Vector output only
+    if vector_different {
+        writeln!(csv_file, "Signal,{},{}, Start Bit (Vector),{},{}", 
+                msg_name, signal_name, vector_bit1, vector_bit2)?;
+    }
+    // If Vector bits are same but raw bits are different, show raw output only
+    if raw_different {
+        writeln!(csv_file, "Signal,{},{}, Start Bit (Raw),{},{}", 
+                msg_name, signal_name, raw_bit1, raw_bit2)?;
     }
     
     // Compare signal size
@@ -256,10 +279,24 @@ fn compare_signal_properties(
                 msg_name, signal_name, sig1.multiplexer_type(), sig2.multiplexer_type())?;
     }
     
-    // Compare initial value
-    if (sig1.initial_value() - sig2.initial_value()).abs() > f64::EPSILON {
-        writeln!(csv_file, "Signal,{},{}, Initial Value,{},{}", 
-                msg_name, signal_name, sig1.initial_value(), sig2.initial_value())?;
+    // Compare initial values
+    let raw_initial1 = sig1.initial_value();
+    let raw_initial2 = sig2.initial_value();
+    let vector_initial1 = sig1.vector_initial_value();
+    let vector_initial2 = sig2.vector_initial_value();
+    
+    let raw_initial_different = (raw_initial1 - raw_initial2).abs() > f64::EPSILON;
+    let vector_initial_different = (vector_initial1 - vector_initial2).abs() > f64::EPSILON;
+    
+    // If Vector initial values are different, show Vector output only
+    if vector_initial_different {
+        writeln!(csv_file, "Signal,{},{}, Initial Value (Vector),{},{}", 
+                msg_name, signal_name, vector_initial1, vector_initial2)?;
+    }
+    // If Vector initial values are same but raw initial values are different, show raw output only
+    if raw_initial_different {
+        writeln!(csv_file, "Signal,{},{}, Initial Value (Raw),{},{}", 
+                msg_name, signal_name, raw_initial1, raw_initial2)?;
     }
     
     // Compare value descriptions
@@ -269,7 +306,13 @@ fn compare_signal_properties(
 }
 
 fn normalize(text: &str) -> String {
-    let mut words: Vec<String> = text
+
+    let replaced = text
+        .to_lowercase()
+        .replace('-', " ")
+        .replace('_', " ");
+
+    let mut words: Vec<String> = replaced
         .to_lowercase()
         .split_whitespace()
         .map(|word| word.trim_matches(|c: char| !c.is_alphanumeric()))
@@ -333,18 +376,20 @@ fn compare_value_descriptions(
                 // Jaro-Winkler is better at handling common prefixes and minor variations
                 if similarity < 0.85 {
                     writeln!(csv_file, "Signal,{},{}, Value 0x{:X} Description,{},{}", 
-                            msg_name, signal_name, value, desc1_display, desc2_display)?;
+                            msg_name, signal_name, value, 
+                            escape_csv_field(desc1_display), 
+                            escape_csv_field(desc2_display))?;
                 }
             },
             (Some(d1), None) => {
                 let desc1_display = if d1.trim().is_empty() { "No Description" } else { d1 };
                 writeln!(csv_file, "Signal,{},{}, Value 0x{:X} Description,{},No Description", 
-                        msg_name, signal_name, value, desc1_display)?;
+                        msg_name, signal_name, value, escape_csv_field(desc1_display))?;
             },
             (None, Some(d2)) => {
                 let desc2_display = if d2.trim().is_empty() { "No Description" } else { d2 };
                 writeln!(csv_file, "Signal,{},{}, Value 0x{:X} Description,No Description,{}", 
-                        msg_name, signal_name, value, desc2_display)?;
+                        msg_name, signal_name, value, escape_csv_field(desc2_display))?;
             },
             (None, None) => unreachable!(),
         }

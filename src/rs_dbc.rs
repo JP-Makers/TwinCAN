@@ -58,6 +58,35 @@ impl Signal {
         self.start_bit
     }
 
+    /// Returns the start bit as displayed in Vector CANdb++
+    pub fn vector_start_bit(&self) -> u64 {
+        // Vector CANdb++ uses the same conversion for both Intel and Motorola
+        // Formula: start_bit - (signal_size - 1)
+        // Example: raw 63, signal_size 4 -> Vector 60
+        match self.byte_order.as_str() {
+            "Intel" => self.start_bit,
+            "Motorola" => {
+                let start_byte = self.start_bit / 8;
+                let start_bit_in_byte = self.start_bit % 8;
+                let end_bit = self.start_bit.saturating_sub(self.signal_size - 1);
+                let end_byte = end_bit / 8;
+
+                if start_byte != end_byte || self.signal_size > 8 {
+                    end_bit
+                }
+                else {
+                    if start_bit_in_byte != 7 {
+                        end_bit
+                    }
+                    else {
+                        self.start_bit
+                    }
+                }
+            },
+            _ => self.signal_size,
+        }
+    }
+
     pub fn signal_size(&self) -> u64 {
         self.signal_size
     }
@@ -104,6 +133,12 @@ impl Signal {
 
     pub fn initial_value(&self) -> f64 {
         self.initial_value
+    }
+
+    /// Returns the initial value as displayed in Vector CANdb++
+    /// Formula: (Raw value × factor) + offset
+    pub fn vector_initial_value(&self) -> f64 {
+        (self.initial_value * self.factor) + self.offset
     }
 }
 
@@ -352,7 +387,7 @@ fn parse_signals(dbc_input: &str, value_descriptions: &collections::HashMap<(u32
 }
 
 fn parse_initial_values(dbc_input: &str) -> collections::HashMap<(u32, String), f64> {
-    let re_sig_val = Regex::new(r#"BA_\s+"GenSigStartValue"\s+SG_\s+(\d+)\s+(\w+)\s+([^;]+);"#).unwrap();
+    let re_sig_val = Regex::new(r#"BA_\s+"GenSigStartValue"\s+SG_\s+(\d+)\s+([^\s]+)\s+([^;]+);"#).unwrap();
     let mut initial_values: collections::HashMap<(u32, String), f64> = collections::HashMap::new();
 
     for cap in re_sig_val.captures_iter(dbc_input) {
