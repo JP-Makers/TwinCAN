@@ -88,8 +88,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- 🐛 **Issues**: [GitHub Issues](../../issues)
-- 💬 **Discussions**: [GitHub Discussions](../../discussions)
+- 🐛 **Issues**: [Gitlab Issues](../../issues)
 - 📧 **Contact**: Open an issue for questions
 
 ---
