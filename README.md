@@ -47,10 +47,10 @@ cargo run --release
 ```
 ### Download Binary
 [![Windows](https://img.shields.io/badge/Windows-OS-blue?style=for-the-badge&logo=windows&logoColor=white
-)](https://github.com/JP-Makers/TwinCAN/archive/refs/tags/v1.0.0.zip)
+)](https://github.com/JP-Makers/TwinCAN/releases/download/v1.0.0/TwinCAN.zip)
 
 [![Linux](https://img.shields.io/badge/Linux-OS-black?style=for-the-badge&logo=linux&logoColor=white
-)](https://github.com/JP-Makers/TwinCAN/archive/refs/tags/v1.0.0.zip)
+)](https://github.com/JP-Makers/TwinCAN/releases/download/v1.0.0/TwinCAN)
 
 **Arch AUR**:
    ```bash
