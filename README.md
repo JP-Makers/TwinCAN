@@ -45,7 +45,20 @@ cd TwinCAN
 cargo build --release
 cargo run --release
 ```
+### Download Binary
+[![Windows](https://img.shields.io/badge/Windows-OS-blue?style=for-the-badge&logo=windows&logoColor=white
+)](https://github.com/JP-Makers/TwinCAN/archive/refs/tags/v1.0.0.zip)
 
+[![Linux](https://img.shields.io/badge/Linux-OS-black?style=for-the-badge&logo=linux&logoColor=white
+)](https://github.com/JP-Makers/TwinCAN/archive/refs/tags/v1.0.0.zip)
+
+**Arch AUR**:
+   ```bash
+   yay -S twincan
+   ```
+   ```bash
+   paru -S twincan
+   ```
 ## 🚀 Usage
 
 ### Step 1: Select DBC Files
