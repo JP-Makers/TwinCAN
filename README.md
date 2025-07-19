@@ -27,11 +27,7 @@ TwinCAN is a modern, user-friendly application designed to compare DBC (Database
 
 ## 🛠️ Installation
 
-### Prerequisites
-- Rust 1.70+ (automatically handled in Replit)
-- Modern operating system (Windows 10+, macOS 10.14+, Linux with GUI support)
-
-### Quick Start on Replit
+### Quick Start
 1. **Clone** this repository
 2. **Run the application**:
    ```bash
