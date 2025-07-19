@@ -1,6 +1,6 @@
 [package]
 name = "TwinCAN"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["runner"]
 edition = "2021"
 
@@ -8,4 +8,10 @@ edition = "2021"
 
 [dependencies]
 regex = "1.11.1"
+slint = "1.12.1"
+rfd = "0.15.3"
 strsim = "0.11.1"
+
+[build-dependencies]
+slint-build = "1.12.1"
+embed-resource = "3.0.5"

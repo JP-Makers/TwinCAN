@@ -1,0 +1,369 @@
+import { Button, VerticalBox, HorizontalBox, ScrollView, StandardListView, ListView } from "std-widgets.slint";
+
+export struct ComparisonResultItem {
+    type: string,
+    message: string,
+    signal: string,
+    field: string,
+    dbc1: string,
+    dbc2: string,
+}
+
+component ColorfulButton inherits Rectangle {
+    in property <string> text;
+    in property <color> bg-color: #4CAF50;
+    in property <color> hover-color: #45a049;
+    in property <color> text-color: white;
+    in property <bool> enabled: true;
+    callback clicked;
+
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    background: enabled ? (touch-area.has-hover ? hover-color : bg-color) : #cccccc;
+    drop-shadow-blur: enabled ? 4px : 0px;
+    drop-shadow-color: rgba(0, 0, 0, 0.2);
+    drop-shadow-offset-y: enabled ? 2px : 0px;
+
+    animate background { duration: 200ms; easing: ease-out; }
+    animate drop-shadow-blur { duration: 200ms; easing: ease-out; }
+
+    touch-area := TouchArea {
+        enabled: root.enabled;
+        clicked => { root.clicked(); }
+    }
+
+    Text {
+        text: root.text;
+        color: root.text-color;
+        font-size: 14px;
+        font-weight: 600;
+        horizontal-alignment: center;
+        vertical-alignment: center;
+    }
+}
+
+component GradientButton inherits Rectangle {
+    in property <string> text;
+    in property <color> start-color: #667eea;
+    in property <color> end-color: #764ba2;
+    in property <color> text-color: white;
+    in property <bool> enabled: true;
+    callback clicked;
+
+    width: 140px;
+    height: 45px;
+    border-radius: 12px;
+    background: enabled ? (touch-area.has-hover ? end-color : start-color) : #cccccc;
+    drop-shadow-blur: enabled ? 6px : 0px;
+    drop-shadow-color: rgba(0, 0, 0, 0.3);
+    drop-shadow-offset-y: enabled ? 3px : 0px;
+
+    animate background { duration: 200ms; easing: ease-out; }
+    animate drop-shadow-blur { duration: 200ms; easing: ease-out; }
+
+    touch-area := TouchArea {
+        enabled: root.enabled;
+        clicked => { root.clicked(); }
+    }
+
+    Text {
+        text: root.text;
+        color: root.text-color;
+        font-size: 15px;
+        font-weight: 700;
+        horizontal-alignment: center;
+        vertical-alignment: center;
+    }
+}
+
+export component MainWindow inherits Window {
+    title: "TwinCAN";
+	icon: @image-url("../assets/logo.png");
+    preferred-width: 800px;
+    preferred-height: 700px;
+
+    callback select-dbc1-file();
+    callback select-dbc2-file();
+    callback compare-files();
+    callback export-csv();
+
+    in-out property <string> dbc1-path: "";
+    in-out property <string> dbc2-path: "";
+    in-out property <string> status: "Ready to compare DBC files";
+    in-out property <[ComparisonResultItem]> comparison-results: [];
+
+    VerticalBox {
+        padding: 20px;
+        spacing: 15px;
+
+        // Header
+        Text {
+            text: "TwinCAN";
+            font-size: 24px;
+            font-weight: 700;
+            horizontal-alignment: center;
+        }
+
+        // File selection section
+        VerticalBox {
+            spacing: 10px;
+
+            Text {
+                text: "Select DBC Files";
+                font-size: 16px;
+                font-weight: 700;
+            }
+
+            HorizontalBox {
+                spacing: 10px;
+                alignment: stretch;
+
+                VerticalBox {
+                    spacing: 5px;
+                    Text {
+                        text: "DBC File 1:";
+                        font-size: 14px;
+                        font-weight: 600;
+                    }
+                    HorizontalBox {
+                        spacing: 12px;
+                        Rectangle {
+                            background: white;
+                            border-width: 1px;
+                            border-color: #ccc;
+                            border-radius: 6px;
+                            height: 40px;
+                            min-width: 200px;
+                            drop-shadow-blur: 3px;
+                            drop-shadow-color: rgba(0, 0, 0, 0.1);
+
+                            Text {
+                                text: dbc1-path == "" ? "No file selected" : dbc1-path;
+                                color: dbc1-path == "" ? #999 : #333;
+                                vertical-alignment: center;
+                                horizontal-alignment: left;
+                                x: 12px;
+                                width: parent.width - 24px;
+                                overflow: elide;
+                                font-size: 14px;
+                            }
+                        }
+                        ColorfulButton {
+                            text: "📂 Browse...";
+                            bg-color: #42b6ae;
+                            hover-color: #26d0ce;
+                            clicked => { select-dbc1-file(); }
+                        }
+                    }
+                }
+
+                VerticalBox {
+                    spacing: 5px;
+                    Text {
+                        text: "DBC File 2:";
+                        font-size: 14px;
+                        font-weight: 600;
+                    }
+                    HorizontalBox {
+                        spacing: 12px;
+                        Rectangle {
+                            background: white;
+                            border-width: 1px;
+                            border-color: #ccc;
+                            border-radius: 6px;
+                            height: 40px;
+                            min-width: 200px;
+                            drop-shadow-blur: 3px;
+                            drop-shadow-color: rgba(0, 0, 0, 0.1);
+
+                            Text {
+                                text: dbc2-path == "" ? "No file selected" : dbc2-path;
+                                color: dbc2-path == "" ? #999 : #333;
+                                vertical-alignment: center;
+                                horizontal-alignment: left;
+                                x: 12px;
+                                width: parent.width - 24px;
+                                overflow: elide;
+                                font-size: 14px;
+                            }
+                        }
+                        ColorfulButton {
+                            text: "📂 Browse...";
+                            bg-color: #42b6ae;
+                            hover-color: #26d0ce;
+                            clicked => { select-dbc2-file(); }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Action buttons
+        HorizontalBox {
+            spacing: 30px;
+            alignment: center;
+
+            GradientButton {
+                text: "⚡ Compare Files";
+                enabled: dbc1-path != "" && dbc2-path != "";
+                start-color: #667eea;
+                end-color: #764ba2;
+                clicked => { compare-files(); }
+            }
+
+            GradientButton {
+                text: "📊 Export to CSV";
+                enabled: comparison-results.length > 0;
+                start-color: #f093fb;
+                end-color: #f5576c;
+                clicked => { export-csv(); }
+            }
+        }
+
+        // Status
+        Text {
+            text: status;
+            font-size: 14px;
+            font-weight: 700;
+            color: #666;
+            horizontal-alignment: center;
+        }
+
+        // Results section
+        VerticalBox {
+			spacing: 20px;
+
+            Text {
+                text: "Comparison Results";
+                font-size: 16px;
+                font-weight: 600;
+            }
+
+            // Column headers
+            Rectangle {
+                height: 30px;
+                background: #e8e8e8;
+                border-width: 1px;
+                border-color: #ccc;
+
+                HorizontalBox {
+                    padding: 5px;
+                    spacing: 10px;
+
+                    Text {
+                        text: "Type";
+                        width: 80px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        vertical-alignment: center;
+                    }
+
+                    Text {
+                        text: "Message";
+                        width: 250px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        vertical-alignment: center;
+                    }
+
+                    Text {
+                        text: "Signal";
+                        width: 250px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        vertical-alignment: center;
+                    }
+
+                    Text {
+                        text: "Field";
+                        width: 200px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        vertical-alignment: center;
+                    }
+
+                    Text {
+                        text: "DBC1";
+                        width: 250px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        vertical-alignment: center;
+                    }
+
+                    Text {
+                        text: "DBC2";
+                        width: 250px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        vertical-alignment: center;
+                    }
+                }
+            }
+
+            ScrollView {
+                height: 250px;
+
+                ListView {
+                    for item in comparison-results: Rectangle {
+                        height: 40px;
+                        background: item.type == "Message" ? #f0f8ff : #fff8f0;
+                        border-width: 1px;
+                        border-color: #ddd;
+
+                        HorizontalBox {
+                            padding: 5px;
+                            spacing: 10px;
+
+                            Text {
+                                text: item.type;
+                                width: 80px;
+                                font-weight: 800;
+                                font-size: 15px;
+                                color: item.type == "Message" ? #0066cc : #cc6600;
+                                vertical-alignment: center;
+                            }
+
+                            Text {
+                                text: item.message;
+                                width: 250px;
+                                font-size: 15px;
+                                vertical-alignment: center;
+                            }
+
+                            Text {
+                                text: item.signal;
+                                width: 250px;
+                                font-size: 15px;
+                                vertical-alignment: center;
+                            }
+
+                            Text {
+                                text: item.field;
+                                width: 200px;
+                                font-size: 15px;
+                                vertical-alignment: center;
+                            }
+
+                            Text {
+                                text: item.dbc1;
+                                width: 250px;
+                                font-size: 15px;
+                                color: #006600;
+                                vertical-alignment: center;
+                            }
+
+                            Text {
+                                text: item.dbc2;
+                                width: 250px;
+                                font-size: 15px;
+                                color: #990000;
+                                vertical-alignment: center;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
