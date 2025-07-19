@@ -30,6 +30,7 @@ TwinCAN is a modern, user-friendly application designed to compare DBC (Database
 ### Quick Start
 1. **Clone** this repository
 2. **Run the application**:
+
    ```bash
    cargo run
    ```
