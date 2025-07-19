@@ -23,7 +23,7 @@ TwinCAN is a modern, user-friendly application designed to compare DBC (Database
 ### 🚀 **Performance**
 - **Fast Parsing**: Efficient DBC file processing with regex-based parsing
 - **Memory Efficient**: Optimized for large DBC files
-- **Cross-platform**: Runs on Windows, macOS, and Linux
+- **Cross-platform**: Runs on Windows, and Linux
 
 ## 🛠️ Installation
 
