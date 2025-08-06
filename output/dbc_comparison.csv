@@ -1,0 +1,21 @@
+Type,Message,Signal,Field,DBC1,DBC2
+Message,Cyclic_Read_Act_Values,, Message ID,0x101,0x120
+Signal,Cyclic_Read_Limits_1,Read_Limit_Umax_Cyclic, Initial Value (Vector),0,1.9999999999999996
+Signal,Cyclic_Read_Limits_1,Read_Limit_Umax_Cyclic, Initial Value (Raw),0,2621.40032584006
+Signal,Cyclic_Read_Status,Read_Coil_DC_Output_Cyclic, Start Bit (Vector),6,1
+Signal,Cyclic_Read_Status,Read_Coil_DC_Output_Cyclic, Start Bit (Raw),6,1
+Signal,Cyclic_Read_Status,Read_Coil_DC_Output_Cyclic, Byte Order,Motorola,Intel
+Signal,Cyclic_Read_Status,Read_Status_Reg_Act_Cyclic, Factor,1,2
+Message,Cyclic_Send_Set_Value,, Exists,No,Yes
+Message,Cyclic_Send_Set_Values,, Exists,Yes,No
+Signal,Read_Object,Read_Alarm_Count_OV, Start Bit (Vector),8,14
+Signal,Read_Object,Read_Alarm_Count_OV, Length,16,10
+Signal,Read_Object,Read_Alarm_Count_OV, Max Value,0,1023
+Signal,Read_Object,Read_Coil_AI_REM_SB_Action, Value Type,Unsigned,Signed
+Message,Send_Object,, DLC,8,7
+Signal,Send_Object,Number_of_register, Exists,No,Yes
+Signal,Send_Object,Number_of_registers, Exists,Yes,No
+Signal,Send_Object,Send_Coil_AI_REM_SB_Action, Unit,No Unit,V
+Signal,Send_Object,Send_Coil_DC_Output, Offset,0,1
+Signal,Send_Object,Send_Coil_DC_Output, Initial Value (Vector),0,2
+Signal,Send_Object,Send_Coil_DC_Output, Initial Value (Raw),0,1
