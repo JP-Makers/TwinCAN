@@ -1,5 +1,5 @@
 use std::str;
-use std::collections;
+use std::collections::HashMap;
 use std::convert::TryFrom;
 use regex::Regex;
 
@@ -44,7 +44,7 @@ pub struct Signal {
      pub max: f64,
      pub unit: String,
      pub receivers: Vec<String>,
-     pub value_descriptions: std::collections::HashMap<u64, String>,
+     pub value_descriptions: HashMap<u64, String>,
      pub multiplexer_type: String,
      pub initial_value: f64,
 }
@@ -123,7 +123,7 @@ impl Signal {
         &self.receivers
     }
 
-    pub fn value_descriptions(&self) -> &std::collections::HashMap<u64, String> {
+    pub fn value_descriptions(&self) -> &HashMap<u64, String> {
         &self.value_descriptions
     }
 
@@ -244,9 +244,9 @@ fn parse_message(dbc_input: &str) -> Vec<Message> {
     message
 }
 
-fn parse_message_name(dbc_input: &str) -> collections::HashMap<u32, String> {
+fn parse_message_name(dbc_input: &str) -> HashMap<u32, String> {
     let re_name = Regex::new(r#"BO_\s+(\d+)\s+(\w+):"#).unwrap();
-    let mut map = collections::HashMap::new();
+    let mut map = HashMap::new();
 
     for cap in re_name.captures_iter(dbc_input) {
         if let (Ok(id), Ok(name)) = (cap[1].parse::<u32>(), cap[2].parse::<String>()) {
@@ -256,9 +256,9 @@ fn parse_message_name(dbc_input: &str) -> collections::HashMap<u32, String> {
     map
 }
 
-fn parse_message_size(dbc_input: &str) -> collections::HashMap<u32, u64> {
+fn parse_message_size(dbc_input: &str) -> HashMap<u32, u64> {
     let re_size = Regex::new(r#"BO_\s+(\d+)\s+\w+:\s+(\d+)"#).unwrap();
-    let mut map = collections::HashMap::new();
+    let mut map = HashMap::new();
 
     for cap in re_size.captures_iter(dbc_input) {
         if let (Ok(id), Ok(size)) = (cap[1].parse::<u32>(), cap[2].parse::<u64>()) {
@@ -268,9 +268,9 @@ fn parse_message_size(dbc_input: &str) -> collections::HashMap<u32, u64> {
     map
 }
 
-fn parse_message_transmitters(dbc_input: &str) -> collections::HashMap<u32, String> {
+fn parse_message_transmitters(dbc_input: &str) -> HashMap<u32, String> {
     let re_transmitter = Regex::new(r#"BO_\s+(\d+)\s+\w+:\s+\d+\s+(\w+)"#).unwrap();
-    let mut map = collections::HashMap::new();
+    let mut map = HashMap::new();
 
     for cap in re_transmitter.captures_iter(dbc_input) {
         if let Ok(id) = cap[1].parse::<u32>() {
@@ -289,9 +289,9 @@ fn parse_default_cycle_time(dbc_input: &str) -> Option<u32> {
     None
 }
 
-fn parse_explicit_cycle_time(dbc_input: &str) -> collections::HashMap<u32, u32> {
+fn parse_explicit_cycle_time(dbc_input: &str) -> HashMap<u32, u32> {
     let re_explicit = Regex::new(r#"BA_ "GenMsgCycleTime" BO_ (\d+) (\d+);"#).unwrap();
-    let mut map = collections::HashMap::new();
+    let mut map = HashMap::new();
 
     for cap in re_explicit.captures_iter(dbc_input) {
       if let (Ok(id), Ok(cycle)) = (cap[1].parse::<u32>(), cap[2].parse::<u32>()) {
@@ -301,10 +301,10 @@ fn parse_explicit_cycle_time(dbc_input: &str) -> collections::HashMap<u32, u32> 
     map
 }
 
-fn parse_signals(dbc_input: &str, value_descriptions: &collections::HashMap<(u32, String), collections::HashMap<u64, String>>) -> collections::HashMap<u32, Vec<Signal>> {
+fn parse_signals(dbc_input: &str, value_descriptions: &HashMap<(u32, String), HashMap<u64, String>>) -> HashMap<u32, Vec<Signal>> {
     let re_signal = Regex::new(r#"SG_\s+(\w+)\s*([mM]?\d*)\s*:\s*(\d+)\|(\d+)@([01])([+-])\s*\(([^,]+),([^)]+)\)\s*\[([^|]+)\|([^\]]+)\]\s*"([^"]*)"\s*(.*)"#).unwrap();
     let initial_values = parse_initial_values(dbc_input);
-    let mut signals_map: collections::HashMap<u32, Vec<Signal>> = collections::HashMap::new();
+    let mut signals_map: HashMap<u32, Vec<Signal>> = HashMap::new();
     let mut current_message_id = 0u32;
     let lines: Vec<&str> = dbc_input.lines().collect();
 
@@ -386,9 +386,9 @@ fn parse_signals(dbc_input: &str, value_descriptions: &collections::HashMap<(u32
     signals_map
 }
 
-fn parse_initial_values(dbc_input: &str) -> collections::HashMap<(u32, String), f64> {
+fn parse_initial_values(dbc_input: &str) -> HashMap<(u32, String), f64> {
     let re_sig_val = Regex::new(r#"BA_\s+"GenSigStartValue"\s+SG_\s+(\d+)\s+([^\s]+)\s+([^;]+);"#).unwrap();
-    let mut initial_values: collections::HashMap<(u32, String), f64> = collections::HashMap::new();
+    let mut initial_values: HashMap<(u32, String), f64> = HashMap::new();
 
     for cap in re_sig_val.captures_iter(dbc_input) {
         if let Ok(message_id) = cap[1].parse::<u32>() {
@@ -402,16 +402,16 @@ fn parse_initial_values(dbc_input: &str) -> collections::HashMap<(u32, String), 
     initial_values
 }
 
-fn parse_value_descriptions(dbc_input: &str) -> collections::HashMap<(u32, String), collections::HashMap<u64, String>> {
+fn parse_value_descriptions(dbc_input: &str) -> HashMap<(u32, String), HashMap<u64, String>> {
     let re_val = Regex::new(r#"VAL_\s+(\d+)\s+(\w+)\s+(.+?);"#).unwrap();
-    let mut value_descriptions: collections::HashMap<(u32, String), collections::HashMap<u64, String>> = collections::HashMap::new();
+    let mut value_descriptions: HashMap<(u32, String), HashMap<u64, String>> = HashMap::new();
 
     for cap in re_val.captures_iter(dbc_input) {
         if let Ok(message_id) = cap[1].parse::<u32>() {
             let signal_name = cap[2].to_string();
             let values_str = &cap[3];
             
-            let mut signal_values = collections::HashMap::new();
+            let mut signal_values = HashMap::new();
             let re_value_pair = Regex::new(r#"(\d+)\s+"([^"]+)""#).unwrap();
             
             for value_cap in re_value_pair.captures_iter(values_str) {

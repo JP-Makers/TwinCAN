@@ -2,8 +2,10 @@
 
 mod rs_dbc;
 
+use std::error::Error;
 use std::fs::File;
 use std::io::{Read, Write};
+use std::collections::{HashMap, HashSet};
 use rs_dbc::Dbc;
 use rfd::FileDialog;
 use slint::{ComponentHandle, VecModel, ModelRc, Model};
@@ -33,7 +35,7 @@ impl From<ComparisonResult> for ComparisonResultItem {
     }
 }
 
-fn load_dbc(path: &str) -> Result<Dbc, Box<dyn std::error::Error>> {
+fn load_dbc(path: &str) -> Result<Dbc, Box<dyn Error>> {
     let mut file = File::open(path)?;
     let mut buffer = vec![];
     file.read_to_end(&mut buffer)?;
@@ -129,8 +131,7 @@ fn main() -> Result<(), slint::PlatformError> {
     ui.run()
 }
 
-fn compare_dbc_files(dbc1: &Dbc, dbc2: &Dbc) -> Result<Vec<ComparisonResult>, Box<dyn std::error::Error>> {
-    use std::collections::HashMap;
+fn compare_dbc_files(dbc1: &Dbc, dbc2: &Dbc) -> Result<Vec<ComparisonResult>, Box<dyn Error>> {
     
     let mut results = Vec::new();
     
@@ -147,7 +148,7 @@ fn compare_dbc_files(dbc1: &Dbc, dbc2: &Dbc) -> Result<Vec<ComparisonResult>, Bo
     }
     
     // Get all unique message names
-    let mut all_message_names: std::collections::HashSet<String> = std::collections::HashSet::new();
+    let mut all_message_names: HashSet<String> = HashSet::new();
     all_message_names.extend(dbc1_messages.keys().cloned());
     all_message_names.extend(dbc2_messages.keys().cloned());
     
@@ -269,8 +270,6 @@ fn compare_signals_for_results(
     msg1: &rs_dbc::Message, 
     msg2: &rs_dbc::Message
 ) {
-    use std::collections::HashMap;
-    
     let msg_name = msg1.message_name();
     
     // Create maps for signal lookup
@@ -286,7 +285,7 @@ fn compare_signals_for_results(
     }
     
     // Get all unique signal names
-    let mut all_signal_names: std::collections::HashSet<&str> = std::collections::HashSet::new();
+    let mut all_signal_names: HashSet<&str> = HashSet::new();
     all_signal_names.extend(signals1.keys());
     all_signal_names.extend(signals2.keys());
     
@@ -527,7 +526,7 @@ fn compare_signal_properties_for_results(
     }
 }
 
-fn export_comparison_to_csv(dbc1: &Dbc, dbc2: &Dbc, path: &str) -> Result<(), Box<dyn std::error::Error>> {
+fn export_comparison_to_csv(dbc1: &Dbc, dbc2: &Dbc, path: &str) -> Result<(), Box<dyn Error>> {
     let mut csv_file = File::create(path)?;
     writeln!(csv_file, "Type,Message,Signal,Field,DBC1,DBC2")?;
     compare_dbc_to_csv(dbc1, dbc2, &mut csv_file)?;
@@ -542,8 +541,7 @@ fn escape_csv_field(field: &str) -> String {
     }
 }
 
-fn compare_dbc_to_csv(dbc1: &Dbc, dbc2: &Dbc, csv_file: &mut std::fs::File) -> Result<(), Box<dyn std::error::Error>> {
-    use std::collections::HashMap;
+fn compare_dbc_to_csv(dbc1: &Dbc, dbc2: &Dbc, csv_file: &mut File) -> Result<(), Box<dyn Error>> {
 	
     // Create maps for quick lookup by message name
     let mut dbc1_messages: HashMap<String, &rs_dbc::Message> = HashMap::new();
@@ -558,7 +556,7 @@ fn compare_dbc_to_csv(dbc1: &Dbc, dbc2: &Dbc, csv_file: &mut std::fs::File) -> R
     }
     
     // Get all unique message names
-    let mut all_message_names: std::collections::HashSet<String> = std::collections::HashSet::new();
+    let mut all_message_names: HashSet<String> = HashSet::new();
     all_message_names.extend(dbc1_messages.keys().cloned());
     all_message_names.extend(dbc2_messages.keys().cloned());
     
@@ -592,11 +590,10 @@ fn compare_dbc_to_csv(dbc1: &Dbc, dbc2: &Dbc, csv_file: &mut std::fs::File) -> R
 }
 
 fn compare_message_properties(
-    csv_file: &mut std::fs::File, 
+    csv_file: &mut File, 
     msg1: &rs_dbc::Message, 
     msg2: &rs_dbc::Message
-) -> Result<(), Box<dyn std::error::Error>> {
-    use std::io::Write;
+) -> Result<(), Box<dyn Error>> {
     
     let msg_name = msg1.message_name();
     
@@ -636,12 +633,10 @@ fn compare_message_properties(
 }
 
 fn compare_signals(
-    csv_file: &mut std::fs::File, 
+    csv_file: &mut File, 
     msg1: &rs_dbc::Message, 
     msg2: &rs_dbc::Message
-) -> Result<(), Box<dyn std::error::Error>> {
-    use std::io::Write;
-    use std::collections::HashMap;
+) -> Result<(), Box<dyn Error>> {
     
     let msg_name = msg1.message_name();
     
@@ -658,7 +653,7 @@ fn compare_signals(
     }
     
     // Get all unique signal names
-    let mut all_signal_names: std::collections::HashSet<&str> = std::collections::HashSet::new();
+    let mut all_signal_names: HashSet<&str> = HashSet::new();
     all_signal_names.extend(signals1.keys());
     all_signal_names.extend(signals2.keys());
     
@@ -691,12 +686,11 @@ fn compare_signals(
 }
 
 fn compare_signal_properties(
-    csv_file: &mut std::fs::File,
+    csv_file: &mut File,
     msg_name: &str,
     sig1: &rs_dbc::Signal,
     sig2: &rs_dbc::Signal
-) -> Result<(), Box<dyn std::error::Error>> {
-    use std::io::Write;
+) -> Result<(), Box<dyn Error>> {
     
     let signal_name = sig1.name();
     
@@ -847,14 +841,12 @@ fn calculate_similarity(s1: &str, s2: &str) -> f64 {
 }
 
 fn compare_value_descriptions(
-    csv_file: &mut std::fs::File,
+    csv_file: &mut File,
     msg_name: &str,
     signal_name: &str,
     sig1: &rs_dbc::Signal,
     sig2: &rs_dbc::Signal
-) -> Result<(), Box<dyn std::error::Error>> {
-    use std::io::Write;
-    use std::collections::HashSet;
+) -> Result<(), Box<dyn Error>> {
     
     let val_desc1 = sig1.value_descriptions();
     let val_desc2 = sig2.value_descriptions();
@@ -932,11 +924,10 @@ fn format_receivers(receivers: &Vec<String>) -> String {
 }
 
 fn write_message_only_in_dbc(
-    csv_file: &mut std::fs::File,
+    csv_file: &mut File,
     msg: &rs_dbc::Message,
     dbc_name: &str
-) -> Result<(), Box<dyn std::error::Error>> {
-    use std::io::Write;
+) -> Result<(), Box<dyn Error>> {
     
     let msg_name = msg.message_name();
     let (dbc1_val, dbc2_val) = if dbc_name == "DBC1" { ("Yes", "No") } else { ("No", "Yes") };

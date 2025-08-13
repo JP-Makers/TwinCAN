@@ -1,5 +1,6 @@
+use std::iter;
 
 fn main() {
     slint_build::compile("ui/main.slint").unwrap();
-	embed_resource::compile("app.rc", std::iter::empty::<&str>());
+	let _ = embed_resource::compile("app.rc", iter::empty::<&str>());
 }
