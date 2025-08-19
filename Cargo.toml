@@ -7,10 +7,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-regex = "1.11.1"
 slint = "1.12.1"
 rfd = "0.15.3"
 strsim = "0.11.1"
+rs_dbc = "0.10.0"
 
 [build-dependencies]
 slint-build = "1.12.1"

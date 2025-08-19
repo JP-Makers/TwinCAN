@@ -1,7 +1,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-mod rs_dbc;
-
 use std::error::Error;
 use std::fs::File;
 use std::io::{Read, Write};

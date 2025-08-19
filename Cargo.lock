@@ -7,8 +7,8 @@ name = "TwinCAN"
 version = "1.0.0"
 dependencies = [
  "embed-resource",
- "regex",
  "rfd",
+ "rs_dbc",
  "slint",
  "slint-build",
  "strsim",
@@ -3737,6 +3737,15 @@ name = "roxmltree"
 version = "0.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6c20b6793b5c2fa6553b250154b78d6d0db37e72700ae35fad9387a46f487c97"
+
+[[package]]
+name = "rs_dbc"
+version = "0.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "14541c13eccec933c4e48c7f7c7db226f69f6d12f9b216d951164ea1ceb55934"
+dependencies = [
+ "regex",
+]
 
 [[package]]
 name = "rustc-hash"
