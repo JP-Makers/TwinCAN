@@ -6,6 +6,7 @@
 [![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![Slint](https://img.shields.io/badge/Slint-GUI-blue?style=for-the-badge)](https://slint.dev/)
 [![CAN](https://img.shields.io/badge/CAN-Bus-green?style=for-the-badge)](https://en.wikipedia.org/wiki/CAN_bus)
+[![LICENSE](https://img.shields.io/badge/license-MIT-orange?style=for-the-badge)](LICENSE)
 
 TwinCAN is a modern, user-friendly application designed to compare DBC (Database CAN) files side-by-side. Perfect for automotive engineers, embedded systems developers, and anyone working with CAN bus networks.
 
@@ -92,13 +93,9 @@ We welcome contributions! Here's how you can help:
 3. **🔧 Submit PRs**: Fork, develop, and submit pull requests
 4. **📖 Improve Docs**: Help make our documentation better
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 📞 Support
 
-- 🐛 **Issues**: [Gitlab Issues](../../issues)
+- 🐛 **Issues**: [Git Issues](../../issues)
 - 📧 **Contact**: Open an issue for questions
 
 ---
