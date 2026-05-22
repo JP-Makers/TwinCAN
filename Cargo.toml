@@ -1,17 +1,26 @@
 [package]
 name = "TwinCAN"
-version = "1.0.0"
+version = "2.0.0"
 authors = ["runner"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[dependencies]
-slint = "1.12.1"
-rfd = "0.15.3"
-strsim = "0.11.1"
-rs_dbc = "0.10.0"
+[[bin]]
+name = "backend"
+path = "src/backend.rs"
 
-[build-dependencies]
-slint-build = "1.12.1"
-embed-resource = "3.0.5"
+[dependencies]
+rs_dbc = "0.10.3"
+strsim = "0.11.1"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.150"
+clap = { version = "4.6.1", features = ["derive"] }
+rust_xlsxwriter = "0.95.0"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
