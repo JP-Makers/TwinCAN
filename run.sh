@@ -22,17 +22,21 @@ if [ $? -ne 0 ]; then
 fi
 echo "Rust backend built successfully."
 
-# Step 2: Package the Python UI with PyInstaller
+# Step 2: Package the Python UI with Nuitka
 echo "============================================"
-echo " Packaging Python UI with PyInstaller..."
+echo " Packaging Python UI with Nuitka..."
 echo "============================================"
-python3 -m PyInstaller --noconsole --onefile \
-    --add-data "target/release/backend:target/release" \
-    -n "TwinCAN_v${version}" \
+python3 -m nuitka --standalone --onefile \
+    --enable-plugin=tk-inter \
+    --include-data-file="target/release/backend=target/release/backend" \
+    --include-data-dir="assets=assets" \
+    --output-filename="TwinCAN_v${version}" \
+    --output-dir="$output_dir" \
+    --remove-output \
     ui/ui.py
 
 if [ $? -ne 0 ]; then
-    echo "Error: PyInstaller packaging failed."
+    echo "Error: Nuitka packaging failed."
     exit 1
 fi
 

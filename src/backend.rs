@@ -238,6 +238,18 @@ fn compare_message_properties_for_results(
             dbc2: format!("{:?}", kind2),
         });
     }
+
+    // Compare Tx Method
+    if msg1.tx_method() != msg2.tx_method() {
+        results.push(ComparisonResult {
+            result_type: "Message".to_string(),
+            message: msg_name.to_string(),
+            signal: "".to_string(),
+            field: "Tx Method".to_string(),
+            dbc1: msg1.tx_method().to_string(),
+            dbc2: msg2.tx_method().to_string(),
+        });
+    }
 }
 
 fn compare_signals_for_results(
@@ -507,6 +519,32 @@ fn compare_signal_properties_for_results(
             dbc2: raw_initial2.to_string(),
         });
     }
+
+    // Compare Value Descriptions
+    let vd1 = sig1.vector_value_descriptions();
+    let vd2 = sig2.vector_value_descriptions();
+
+    if vd1 != vd2 {
+        let format_vd = |vd: &Vec<(String, String)>| -> String {
+            if vd.is_empty() {
+                "None".to_string()
+            } else {
+                vd.iter()
+                    .map(|(k, v)| format!("{} = \"{}\"", k, v))
+                    .collect::<Vec<_>>()
+                    .join("\n")
+            }
+        };
+
+        results.push(ComparisonResult {
+            result_type: "Signal".to_string(),
+            message: msg_name.to_string(),
+            signal: signal_name.to_string(),
+            field: "Value Description".to_string(),
+            dbc1: format_vd(&vd1),
+            dbc2: format_vd(&vd2),
+        });
+    }
 }
 
 fn export_comparison_to_xlsx(
@@ -525,6 +563,7 @@ fn export_comparison_to_xlsx(
                 "DLC" => "Message DLC".to_string(),
                 "Cycle Time" => "Message Cycle Time".to_string(),
                 "Transmitter" => "Message Transmitter".to_string(),
+                "Tx Method" => "Message Tx Method".to_string(),
                 "Message ID" => "Message ID".to_string(),
                 "ID Format" => "Message ID Format".to_string(),
                 _ => "Other Messages".to_string(),

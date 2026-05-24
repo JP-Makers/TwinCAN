@@ -404,7 +404,7 @@ VAL_ 256 Read_Status_Alarm_OPD_Cyclic 1 "on" 0 "off" ;
 VAL_ 256 Read_Status_Alarm_OCP_Cyclic 1 "on" 0 "off" ;
 VAL_ 256 Read_Status_Alarm_OCD_Cyclic 1 "on" 0 "off" ;
 VAL_ 256 Read_Status_Alarm_MSS_Cyclic 1 "on" 0 "off" ;
-VAL_ 256 Read_Status_Alarms_Cyclic 1 "Alarm" 0 "No alarm" ;
+VAL_ 256 Read_Status_Alarms_Cyclic 0 "No alarm" ;
 VAL_ 256 Read_Status_Access_Cyclic 25 "CAN" 8 "Master/Slave" 5 "analog" 3 "USB" 2 "remote" 1 "local" 0 "free" ;
 VAL_ 256 Read_Coil_Op_Mode_Cyclic 1 "UIR" 0 "UIP" ;
 VAL_ 256 Read_Coil_DC_Output_Cyclic 1 "on" 0 "off" ;
